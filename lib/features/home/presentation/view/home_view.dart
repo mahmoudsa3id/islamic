@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => getit<NextPrayerCubit>(),
-        child: HomeViewBody(),
+        child: const HomeViewBody(),
       ),
     );
   }

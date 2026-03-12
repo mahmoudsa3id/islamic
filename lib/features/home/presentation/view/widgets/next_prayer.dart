@@ -63,13 +63,9 @@ class NextPrayer extends StatelessWidget {
         }
 
         return Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: ColorManager.yellow,
-              style: BorderStyle.solid,
-            ),
+            border: Border.all(width: 2, color: ColorManager.yellow),
             color: ColorManager.darkgreen2,
             borderRadius: BorderRadius.circular(40),
           ),
@@ -120,7 +116,7 @@ class NextPrayer extends StatelessWidget {
 
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             FontAwesomeIcons.locationDot,
                             size: 15,
                             color: ColorManager.yellow,

@@ -12,9 +12,9 @@ class AyahItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final tr = S.of(context);
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border: BoxBorder.all(width: 1, color: ColorManager.yellow),
+        border: BoxBorder.all(color: ColorManager.yellow),
         color: ColorManager.darkgreen2,
         borderRadius: BorderRadius.circular(20),
       ),
@@ -28,7 +28,7 @@ class AyahItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: 20,
                   right: 20,
                   top: 10,
@@ -48,7 +48,10 @@ class AyahItem extends StatelessWidget {
                 backgroundColor: ColorManager.darkgreenbrown,
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.play_arrow, color: ColorManager.yellow),
+                  icon: const Icon(
+                    Icons.play_arrow,
+                    color: ColorManager.yellow,
+                  ),
                 ),
               ),
             ],

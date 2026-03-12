@@ -16,7 +16,7 @@ class PrayerCacheService {
   }
 
   /// قراءة الكاش
-  static Future<List?> load(int month, int year) async {
+  static Future<dynamic> load(int month, int year) async {
     final prefs = await SharedPreferences.getInstance();
 
     final cacheMonth = prefs.getInt(monthKey);

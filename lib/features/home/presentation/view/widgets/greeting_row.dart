@@ -16,6 +16,7 @@ class GreetingRow extends StatelessWidget {
     return Row(
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               tr.greeting,
@@ -25,9 +26,9 @@ class GreetingRow extends StatelessWidget {
             Text('محمود سعيد', style: TextStyleManager.bold20(context)),
           ],
         ),
-        Spacer(),
+        const Spacer(),
 
-        Stack(
+        const Stack(
           children: [
             CustomCircleIcon(
               borderColor: ColorManager.borderprofilecolor,

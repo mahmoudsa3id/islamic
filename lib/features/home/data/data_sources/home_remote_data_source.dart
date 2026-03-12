@@ -14,7 +14,7 @@ abstract class HomeRemoteDatasource {
 class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
   final ApiService apiService;
 
-  HomeRemoteDatasourceImpl(this.apiService);
+  const HomeRemoteDatasourceImpl(this.apiService);
 
   @override
   Future<List<PrayerModel>> getMonthlyPrayers(
@@ -23,30 +23,35 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
     int month,
     int year,
   ) async {
-    /// نحاول نقرأ الكاش
-    final cache = await PrayerCacheService.load(month, year);
+    try {
+      /// 1️⃣ محاولة قراءة الكاش
+      final cache = await PrayerCacheService.load(month, year);
 
-    if (cache != null) {
-      return cache.map((e) => PrayerModel.fromJson(e)).toList();
+      if (cache != null && cache.isNotEmpty) {
+        return cache.map<PrayerModel>((e) => PrayerModel.fromJson(e)).toList();
+      }
+
+      /// 2️⃣ ضرب API
+      final response = await apiService.get(
+        endpoint: "calendar",
+        query: {
+          "latitude": lat,
+          "longitude": lon,
+          "method": 5,
+          "month": month,
+          "year": year,
+        },
+      );
+
+      final List<dynamic> data = response.data["data"];
+
+      /// 3️⃣ حفظ الكاش
+      await PrayerCacheService.save(data, month, year);
+
+      /// 4️⃣ تحويل البيانات
+      return data.map<PrayerModel>((e) => PrayerModel.fromJson(e)).toList();
+    } catch (e) {
+      throw Exception("Failed to fetch prayer times: $e");
     }
-
-    /// لو مفيش كاش نضرب API
-    final response = await apiService.get(
-      endpoint: "calendar",
-      query: {
-        "latitude": lat,
-        "longitude": lon,
-        "method": 5,
-        "month": month,
-        "year": year,
-      },
-    );
-
-    final List data = response.data["data"];
-
-    /// نحفظ الكاش
-    await PrayerCacheService.save(data, month, year);
-
-    return data.map((e) => PrayerModel.fromJson(e)).toList();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic/core/helper/spacing.dart';
-import 'package:islamic/core/theming/colors.dart';
 import 'package:islamic/features/home/presentation/cubit/cubit/next_prayer_cubit.dart';
 import 'package:islamic/features/home/presentation/view/widgets/ayah_item.dart';
 import 'package:islamic/features/home/presentation/view/widgets/category_grid_view.dart';
@@ -10,46 +9,52 @@ import 'package:islamic/features/home/presentation/view/widgets/greeting_row.dar
 import 'package:islamic/features/home/presentation/view/widgets/next_prayer.dart';
 import 'package:islamic/generated/l10n.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).languageCode;
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // For example, you can call the loadPrayer function of the NextPrayerCubit
+class _HomeViewBodyState extends State<HomeViewBody> {
+  bool _isLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_isLoaded) {
+      final locale = Localizations.localeOf(context).languageCode;
       context.read<NextPrayerCubit>().loadPrayer(locale);
-    });
+      _isLoaded = true;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final tr = S.of(context);
-    return Scaffold(
-      backgroundColor: ColorManager.darkgreen1,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await context.read<NextPrayerCubit>().loadPrayer(locale);
-          },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GreetingRow(tr: tr),
-                  verticalSpace(30),
-                  NextPrayer(),
-                  verticalSpace(30),
-                  CategoryGridView(),
-                  verticalSpace(10),
-                  CustomRowTwoText(text1: tr.ayahDay, text2: tr.readMore),
-                  verticalSpace(15),
-                  AyahItem(),
-                  verticalSpace(15),
-                  CustomRowTwoText(text1: tr.dayHadiths, text2: tr.library),
-                ],
-              ),
-            ),
-          ),
+
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          final locale = Localizations.localeOf(context).languageCode;
+          await context.read<NextPrayerCubit>().loadPrayer(locale);
+        },
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          children: [
+            GreetingRow(tr: tr),
+            verticalSpace(30),
+            const NextPrayer(),
+            verticalSpace(30),
+            const CategoryGridView(),
+            verticalSpace(10),
+            CustomRowTwoText(text1: tr.ayahDay, text2: tr.readMore),
+            verticalSpace(15),
+            const AyahItem(),
+            verticalSpace(15),
+            CustomRowTwoText(text1: tr.dayHadiths, text2: tr.library),
+          ],
         ),
       ),
     );
