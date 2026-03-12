@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:islamic/core/helper/spacing.dart';
 import 'package:islamic/core/theming/colors.dart';
 
 class PrayerCountdown extends StatefulWidget {
@@ -13,22 +14,22 @@ class PrayerCountdown extends StatefulWidget {
 }
 
 class _PrayerCountdownState extends State<PrayerCountdown> {
-  Duration remaining = Duration.zero;
+  Duration remaining = const Duration();
   Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    calculate();
-
-    timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      calculate();
-    });
+    calculateInitial();
+    startTimer();
   }
 
-  void calculate() {
+  /// حساب الفرق مرة واحدة فقط
+  void calculateInitial() {
     final now = DateTime.now();
-    final parts = widget.prayerTime.split(":");
+
+    final cleanTime = widget.prayerTime.split(" ").first;
+    final parts = cleanTime.split(":");
 
     DateTime prayer = DateTime(
       now.year,
@@ -38,13 +39,19 @@ class _PrayerCountdownState extends State<PrayerCountdown> {
       int.parse(parts[1]),
     );
 
-    /// لو وقت الصلاة عدى النهارده نخليه بكرة
     if (prayer.isBefore(now)) {
       prayer = prayer.add(const Duration(days: 1));
     }
 
-    setState(() {
-      remaining = prayer.difference(now);
+    remaining = prayer.difference(now);
+  }
+
+  /// تقليل الوقت كل ثانية
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {
+        remaining = remaining - const Duration(seconds: 1);
+      });
     });
   }
 
@@ -60,13 +67,19 @@ class _PrayerCountdownState extends State<PrayerCountdown> {
     final m = remaining.inMinutes % 60;
     final s = remaining.inSeconds % 60;
 
-    return Text(
-      "$h:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}",
-      style: TextStyle(
-        fontSize: 14,
-        color: ColorManager.yellow,
-        fontWeight: FontWeight.w600,
-      ),
+    return Row(
+      children: [
+        Icon(FontAwesomeIcons.powerOff, size: 10, color: ColorManager.darkGrey),
+        horizontalSpace(5),
+        Text(
+          "$h:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}",
+          style: TextStyle(
+            fontSize: 14,
+            color: ColorManager.yellow,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

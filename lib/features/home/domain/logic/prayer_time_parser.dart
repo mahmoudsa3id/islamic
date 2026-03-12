@@ -1,7 +1,9 @@
 DateTime parsePrayerTime(String time) {
   final now = DateTime.now();
 
-  final parts = time.split(":");
+  final cleanTime = time.split(" ").first;
+
+  final parts = cleanTime.split(":");
 
   return DateTime(
     now.year,

@@ -25,9 +25,12 @@ class LocationService {
       throw Exception("Location permanently denied");
     }
 
-    /// get position
-    Position position = await Geolocator.getCurrentPosition(
+    /// try last known position first
+    Position? position = await Geolocator.getLastKnownPosition();
+
+    position ??= await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
+      timeLimit: const Duration(seconds: 10),
     );
 
     final lat = position.latitude;
@@ -42,16 +45,10 @@ class LocationService {
 
     final place = placemarks.first;
 
-    /// district (قسم)
     final district = place.locality;
-
-    /// city (مدينة)
     final city = place.subAdministrativeArea;
-
-    /// governorate
     final governorate = place.administrativeArea;
 
-    /// build city name
     String cityName;
 
     if (district != null && city != null) {
@@ -60,7 +57,6 @@ class LocationService {
       cityName = district ?? city ?? governorate ?? "Unknown";
     }
 
-    /// full address (like Muslim apps)
     final address = cityName;
 
     return LocationModels(lat: lat, lon: lon, city: cityName, address: address);

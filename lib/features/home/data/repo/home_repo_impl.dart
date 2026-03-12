@@ -10,12 +10,19 @@ class HomeRepoImpl implements HomeRepo {
   HomeRepoImpl(this.remote);
 
   @override
-  Future<Either<Failure, PrayerEntity>> getPrayerTimes(
+  Future<Either<Failure, List<PrayerEntity>>> getPrayerTimes(
     double latitude,
     double longitude,
+    int month,
+    int year,
   ) async {
     try {
-      final remoteData = await remote.getMonthlyPrayers(latitude, longitude);
+      final remoteData = await remote.getMonthlyPrayers(
+        latitude,
+        longitude,
+        month,
+        year,
+      );
 
       return Right(remoteData);
     } catch (e) {

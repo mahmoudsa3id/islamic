@@ -15,8 +15,9 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final locale = Localizations.localeOf(context).languageCode;
       // For example, you can call the loadPrayer function of the NextPrayerCubit
       context.read<NextPrayerCubit>().loadPrayer(locale);
     });
@@ -24,24 +25,29 @@ class HomeViewBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorManager.darkgreen1,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GreetingRow(tr: tr),
-                verticalSpace(30),
-                NextPrayer(),
-                verticalSpace(30),
-                CategoryGridView(),
-                verticalSpace(10),
-                CustomRowTwoText(text1: tr.ayahDay, text2: tr.readMore),
-                verticalSpace(15),
-                AyahItem(),
-                verticalSpace(15),
-                CustomRowTwoText(text1: tr.dayHadiths, text2: tr.library),
-              ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await context.read<NextPrayerCubit>().loadPrayer(locale);
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GreetingRow(tr: tr),
+                  verticalSpace(30),
+                  NextPrayer(),
+                  verticalSpace(30),
+                  CategoryGridView(),
+                  verticalSpace(10),
+                  CustomRowTwoText(text1: tr.ayahDay, text2: tr.readMore),
+                  verticalSpace(15),
+                  AyahItem(),
+                  verticalSpace(15),
+                  CustomRowTwoText(text1: tr.dayHadiths, text2: tr.library),
+                ],
+              ),
             ),
           ),
         ),

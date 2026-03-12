@@ -14,18 +14,20 @@ class NextPrayer extends StatelessWidget {
   const NextPrayer({super.key});
 
   String formatTime(String time) {
-    final now = DateTime.now();
-    final parts = time.split(":");
+    try {
+      final cleanTime = time.split(" ").first;
 
-    final date = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      int.parse(parts[0]),
-      int.parse(parts[1]),
-    );
+      final parts = cleanTime.split(":");
 
-    return DateFormat("hh:mm a").format(date);
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
+
+      final date = DateTime(0, 0, 0, hour, minute);
+
+      return DateFormat("hh:mm a").format(date);
+    } catch (e) {
+      return "--:--";
+    }
   }
 
   @override
@@ -43,7 +45,7 @@ class NextPrayer extends StatelessWidget {
         final prayerNames = [tr.fajr, tr.dhuhr, tr.asr, tr.maghrib, tr.isha];
 
         if (state is NextPrayerLoaded) {
-          final prayerTimes = [
+          late final prayerTimes = [
             state.prayer.fajr,
             state.prayer.dhuhr,
             state.prayer.asr,
@@ -74,6 +76,7 @@ class NextPrayer extends StatelessWidget {
           height: height(context) * 0.3,
           width: width(context),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// TOP ROW
               Row(
@@ -115,11 +118,20 @@ class NextPrayer extends StatelessWidget {
 
                       verticalSpace(6),
 
-                      Text(
-                        address,
-                        style: TextStyleManager.medium15bluegrey(
-                          context,
-                        ).copyWith(fontWeight: FontWeight.w600),
+                      Row(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.locationDot,
+                            size: 15,
+                            color: ColorManager.yellow,
+                          ),
+                          Text(
+                            address,
+                            style: TextStyleManager.medium15bluegrey(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -129,20 +141,8 @@ class NextPrayer extends StatelessWidget {
               verticalSpace(5),
 
               /// HIJRI DATE
-              Row(
-                children: [
-                  Text(
-                    hijri,
-                    style: TextStyleManager.yellowSemiBold20(context),
-                  ),
-                  horizontalSpace(4),
-                  Icon(
-                    FontAwesomeIcons.locationDot,
-                    size: 15,
-                    color: ColorManager.yellow,
-                  ),
-                ],
-              ),
+              Text(hijri, style: TextStyleManager.yellowSemiBold20(context)),
+              horizontalSpace(4),
 
               const Spacer(),
 

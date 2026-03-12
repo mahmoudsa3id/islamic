@@ -14,14 +14,25 @@ class NextPrayerUseCase {
   Future<Either<Failure, NextPrayerResult>> call(String locale) async {
     final location = await locationService.getLocationData(locale: locale);
 
-    final result = await repo.getPrayerTimes(location.lat, location.lon);
+    final now = DateTime.now();
 
-    return result.map((prayers) {
-      final nextIndex = getNextPrayerIndex(prayers);
-      final nextTime = getNextPrayerTime(prayers);
+    final result = await repo.getPrayerTimes(
+      location.lat,
+      location.lon,
+      now.month,
+      now.year,
+    );
+
+    return result.map((monthlyPrayers) {
+      final todayIndex = now.day - 1;
+
+      final todayPrayers = monthlyPrayers[todayIndex];
+
+      final nextIndex = getNextPrayerIndex(todayPrayers);
+      final nextTime = getNextPrayerTime(todayPrayers);
 
       return NextPrayerResult(
-        prayer: prayers,
+        prayer: todayPrayers,
         nextIndex: nextIndex,
         city: location.city,
         address: location.address,
