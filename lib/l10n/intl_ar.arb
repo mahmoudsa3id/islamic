@@ -1,0 +1,79 @@
+{
+  "homeTitle": "الرئيسية",
+  "nextPrayer": "الصلاة القادمة",
+  "quran": "القرآن",
+  "prayer": "الصلاة",
+  "qibla": "القبلة",
+  "azkar": "الأذكار",
+  "greeting": "السلام عليكم 👋",
+  "appName": "نور",
+
+  "home": "الرئيسية",
+  "prayerTimes": "مواقيت الصلاة",
+
+  "currentPrayer": "الصلاة الحالية",
+  "remainingTime": "الوقت المتبقي",
+  "prayerFinished": "انتهت الصلاة",
+
+  "fajr": "الفجر",
+  "sunrise": "الشروق",
+  "dhuhr": "الظهر", 
+  "asr": "العصر",
+  "maghrib": "المغرب",
+  "isha": "العشاء",
+
+ 
+  "surah": "سورة",
+  "ayah": "آية",
+  "juz": "جزء",
+
+  "morningAzkar": "أذكار الصباح",
+  "eveningAzkar": "أذكار المساء",
+  "sleepAzkar": "أذكار النوم",
+
+  "tasbeeh": "التسبيح",
+  "counter": "العداد",
+  "reset": "إعادة تعيين",
+
+  "direction": "اتجاه القبلة",
+
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "arabic": "العربية",
+  "english": "الإنجليزية",
+
+  "notifications": "الإشعارات",
+  "prayerNotifications": "إشعارات الصلاة",
+
+  "darkMode": "الوضع الليلي",
+  "lightMode": "الوضع الفاتح",
+
+  "search": "بحث",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "zakat": "الزكاة",
+  "loading": "جاري التحميل",
+  "error": "حدث خطأ",
+  "tryAgain": "حاول مرة أخرى",
+    "hadith" : "الحديث", 
+    "hadithDetails" : "Hadith Details",
+    "hadiths" : "Hadiths",
+    "hadithsList" : "Hadiths List",
+    "celender" :"التقويم"
+    ,"mosques" : "المساجد",
+    "mosquesList" : "Mosques List",
+    "readMore": "اقرأ المزيد",
+    "readLess": "قراءة اقل",
+    "searchMosque" : "ابحث عن مسجد",
+    "ayahDay" : "آية اليوم",
+      "dayHadiths" : "حديث اليوم",
+      "library" : "المكتبة",
+      "searchHadith" : "ابحث عن حديث",
+      "searchAyah" : "ابحث عن اية",
+      "searchSurah" : "ابحث عن سورة",
+      "searchJuz" : "ابحث عن جزء",
+      "juzAyahs" : "اية الجزء",
+      "juzHadiths" : "حديث الجزء"
+
+}

@@ -1,0 +1,69 @@
+{
+  "homeTitle": "Home",
+  "nextPrayer": "Next Prayer",
+  "quran": "Quran",
+  "prayer": "Prayer",
+  "qibla": "Qibla",
+  "azkar": "Azkar", 
+  "greeting": " Hello  👋",
+   "appName": "Noor",
+
+  "home": "Home", 
+  "prayerTimes": "Prayer Times",
+
+  "currentPrayer": "Current Prayer",
+  "remainingTime": "Remaining Time",
+  "prayerFinished": "Prayer Finished",
+
+  "fajr": "Fajr",
+  "sunrise": "Sunrise",
+  "dhuhr": "Dhuhr",
+  "asr": "Asr",
+  "maghrib": "Maghrib",
+  "isha": "Isha",
+
+  "surah": "Surah",
+  "ayah": "Ayah",
+  "juz": "Juz",
+
+  "morningAzkar": "Morning Azkar",
+  "eveningAzkar": "Evening Azkar",
+  "sleepAzkar": "Sleep Azkar",
+
+  "tasbeeh": "Tasbeeh",
+  "counter": "Counter",
+  "reset": "Reset",
+
+  "direction": "Qibla Direction",
+
+  "settings": "Settings",
+  "language": "Language",
+  "arabic": "Arabic",
+  "english": "English",
+  "hadith" : "Hadith",
+  "celender": "Calender", 
+  "mosques" : "Mosques",
+"zakat":"zakat",
+  "notifications": "Notifications",
+  "prayerNotifications": "Prayer Notifications",
+
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+
+  "search": "Search",
+  "save": "Save",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+
+  "loading": "Loading",
+  "error": "Something went wrong",
+  "tryAgain": "Try again",
+  "readMore": "Read More",
+  "hadithDetails" : "Hadith Details",
+  "dayHadiths" : "Day Hadiths",
+  "hadiths" : "Hadiths",
+  "hadithsList" : "Hadiths List",
+  "mosquesList" : "Mosques List"
+  ,"ayahDay" : "Ayah of the Day" ,
+  "library" : "Library"
+}
